@@ -1,0 +1,2 @@
+(self.webpackChunkalpha_cc_web=self.webpackChunkalpha_cc_web||[]).push([[179],{177:(e,t,c)=>{"use strict";var l=c(294);const a=function(){return l.createElement("div",{className:"app"},"Welcome to Alpha Cc Web")};c(935).render(l.createElement(l.StrictMode,null,l.createElement(a,null)),document.getElementById("root"))}},e=>{"use strict";e.O(0,[935],(()=>(177,e(e.s=177)))),e.O()}]);
+//# sourceMappingURL=main_179.aecdc2c3.js.map
