@@ -10,7 +10,7 @@ import getDevConfig from './webpack.dev';
 import getProdConfig from './webpack.prod';
 
 // the public URL address of the output files when referenced in a browser
-const PUBLIC_URL = '/';
+const PUBLIC_URL = '/alpha-cc-web/';
 
 const commonConfig: webpack.Configuration = {
   entry: './src/index.tsx',
