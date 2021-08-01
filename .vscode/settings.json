@@ -45,5 +45,10 @@
   },
   "editor.codeActionsOnSave": {
     "source.fixAll.stylelint": true
-  }
+  },
+  "typescript.suggest.paths": false,
+  "path-autocomplete.pathMappings": {
+    "@/": "${folder}/src/"
+  },
+  "path-autocomplete.extensionOnImport": true
 }

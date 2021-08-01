@@ -4,8 +4,8 @@
   "private": true,
   "description": "A web interface for Alpha-CC (Chinese Chess AI)",
   "scripts": {
-    "dev": "webpack serve --mode development --config webpack.common.ts",
-    "build": "webpack --mode production --config webpack.common.ts",
+    "dev": "webpack serve --mode development --config webpack.dev.ts",
+    "build": "webpack --mode production --config webpack.prod.ts",
     "prepare": "husky install"
   },
   "repository": {
@@ -16,6 +16,7 @@
   "author": "Yuhao Chen <yuhaochen0107@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "classnames": "^2.3.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },

@@ -1,0 +1,23 @@
+.piece {
+  position: relative;
+  background-repeat: no-repeat;
+
+  &--active {
+    transform: scale(1.12);
+  }
+
+  &--red {
+    background-image: url('@/assets/images/overlay/box-red.png');
+  }
+
+  &--black {
+    background-image: url('@/assets/images/overlay/box-black.png');
+  }
+}
+
+.valid-move {
+  position: absolute;
+  top: 16px;
+  left: 15px;
+  transform: scale(0.7);
+}
