@@ -43,9 +43,11 @@ const BoardItem: React.FC<Props> = ({
           src={PieceToImg[type][side]}
         />
       )}
-      {validMove && (
-        <img className="valid-move" alt="valid move" src={validMoveDot} />
-      )}
+      <img
+        className={cx('valid-move', { 'valid-move--hidden': !validMove })}
+        alt="valid move"
+        src={validMoveDot}
+      />
     </div>
   );
 };
