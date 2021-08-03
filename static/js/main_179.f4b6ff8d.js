@@ -117,8 +117,10 @@ var BoardItem = function BoardItem(_ref) {
     draggable: "false",
     alt: "chinese chess piece",
     src: PieceToImg[type][side]
-  }), validMove && /*#__PURE__*/react.createElement("img", {
-    className: "valid-move",
+  }), /*#__PURE__*/react.createElement("img", {
+    className: classnames_default()('valid-move', {
+      'valid-move--hidden': !validMove
+    }),
     alt: "valid move",
     src: valid_move_dot
   }));
@@ -722,4 +724,4 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADYAAAA2CAMAAAC7
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=main_179.9f36aabf.js.map
+//# sourceMappingURL=main_179.f4b6ff8d.js.map
