@@ -1,6 +1,6 @@
 (self["webpackChunkalpha_cc_web"] = self["webpackChunkalpha_cc_web"] || []).push([[179],{
 
-/***/ 692:
+/***/ 850:
 /***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -251,6 +251,18 @@ var Direction;
   Direction[Direction["RB"] = 7] = "RB";
 })(Direction || (Direction = {}));
 ;// CONCATENATED MODULE: ./src/utils/move.ts
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || move_unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function move_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return move_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return move_arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return move_arrayLikeToArray(arr); }
+
+function move_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 
 
 
@@ -413,9 +425,36 @@ var configureGetPos = function configureGetPos(board, side, from) {
     return res;
   };
 
+  var kingKill = function kingKill() {
+    var column = [];
+    board.forEach(function (row) {
+      return row.forEach(function (item, colIdx) {
+        if (colIdx === from[1]) {
+          column.push(item);
+        }
+      });
+    });
+    var kingIdx = column.findIndex(function (item) {
+      return item && item.type === PieceType.KING && item.side !== side;
+    });
+
+    if (kingIdx >= 0) {
+      for (var i = Math.min(from[0], kingIdx) + 1; i < Math.max(from[0], kingIdx); i += 1) {
+        if (column[i]) {
+          return [];
+        }
+      }
+
+      return [[kingIdx, from[1]]];
+    }
+
+    return [];
+  };
+
   return {
     common: common,
-    special: special
+    special: special,
+    kingKill: kingKill
   };
 };
 var getValidMoves = function getValidMoves(board, position, piece) {
@@ -451,7 +490,7 @@ var getValidMoves = function getValidMoves(board, position, piece) {
       return getPos.common(piece.side === Side.RED ? Bound.RED_KING : Bound.BLACK_KING, "".concat(LF, "1"), "".concat(LB, "1"), "".concat(RF, "1"), "".concat(RB, "1"));
 
     case PieceType.KING:
-      return getPos.common(piece.side === Side.RED ? Bound.RED_KING : Bound.BLACK_KING, "".concat(F, "1"), "".concat(B, "1"), "".concat(L, "1"), "".concat(R, "1"));
+      return [].concat(_toConsumableArray(getPos.common(piece.side === Side.RED ? Bound.RED_KING : Bound.BLACK_KING, "".concat(F, "1"), "".concat(B, "1"), "".concat(L, "1"), "".concat(R, "1"))), _toConsumableArray(getPos.kingKill()));
 
     case PieceType.HORSE:
       return getPos.common(Bound.BOARD, "".concat(F, "1").concat(LF, "1"), "".concat(F, "1").concat(RF, "1"), "".concat(L, "1").concat(LF, "1"), "".concat(L, "1").concat(LB, "1"), "".concat(B, "1").concat(LB, "1"), "".concat(B, "1").concat(RB, "1"), "".concat(R, "1").concat(RF, "1"), "".concat(R, "1").concat(RB, "1"));
@@ -472,14 +511,62 @@ var getValidMoves = function getValidMoves(board, position, piece) {
 var isEqualPosition = function isEqualPosition(p1, p2) {
   return p1[0] === p2[0] && p1[1] === p2[1];
 };
+;// CONCATENATED MODULE: ./src/utils/game.ts
+
+
+
+
+var checkmate = function checkmate(board, side) {
+  // side: side being checkmated
+  var king = [-1, -1];
+  board.forEach(function (row, rowIdx) {
+    row.forEach(function (piece, colIdx) {
+      if ((piece === null || piece === void 0 ? void 0 : piece.side) === side && (piece === null || piece === void 0 ? void 0 : piece.type) === PieceType.KING) {
+        king = [rowIdx, colIdx];
+      }
+    });
+  });
+  return board.some(function (row, rowIdx) {
+    return row.some(function (piece, colIdx) {
+      if ((piece === null || piece === void 0 ? void 0 : piece.side) !== side) {
+        var validMoves = getValidMoves(board, [rowIdx, colIdx], piece);
+        return validMoves.some(function (move) {
+          return isEqualPosition(king, move);
+        });
+      }
+
+      return false;
+    });
+  });
+};
+var win = function win(board, side) {
+  return (// side: side being checkmated
+    !board.some(function (row, rowIdx) {
+      return row.some(function (piece, colIdx) {
+        if ((piece === null || piece === void 0 ? void 0 : piece.side) === side) {
+          var validMoves = getValidMoves(board, [rowIdx, colIdx], piece);
+          return validMoves.some(function (move) {
+            var newBoard = boardReducer(board, {
+              from: [rowIdx, colIdx],
+              to: move
+            });
+            return !checkmate(newBoard, side);
+          });
+        }
+
+        return false;
+      });
+    })
+  );
+};
 ;// CONCATENATED MODULE: ./src/app.tsx
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || app_unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function app_toConsumableArray(arr) { return app_arrayWithoutHoles(arr) || app_iterableToArray(arr) || app_unsupportedIterableToArray(arr) || app_nonIterableSpread(); }
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function app_nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function app_iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return app_arrayLikeToArray(arr); }
+function app_arrayWithoutHoles(arr) { if (Array.isArray(arr)) return app_arrayLikeToArray(arr); }
 
 function app_slicedToArray(arr, i) { return app_arrayWithHoles(arr) || app_iterableToArrayLimit(arr, i) || app_unsupportedIterableToArray(arr, i) || app_nonIterableRest(); }
 
@@ -501,34 +588,50 @@ function app_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
 var initialBoard = initBoard();
 
 var App = function App() {
-  var _useReducer = (0,react.useReducer)(boardReducer, initialBoard),
-      _useReducer2 = app_slicedToArray(_useReducer, 2),
-      board = _useReducer2[0],
-      updateBoard = _useReducer2[1];
+  console.log('rerender'); // const [board, updateBoard] = useReducer<BoardReducer>(
+  //   boardReducer,
+  //   initialBoard,
+  // );
 
-  var _useState = (0,react.useState)(null),
+  var _useState = (0,react.useState)(initialBoard),
       _useState2 = app_slicedToArray(_useState, 2),
-      activePiece = _useState2[0],
-      setActivePiece = _useState2[1];
+      board = _useState2[0],
+      setBoard = _useState2[1];
 
-  var _useState3 = (0,react.useState)(Side.RED),
+  var _useState3 = (0,react.useState)(null),
       _useState4 = app_slicedToArray(_useState3, 2),
-      activeSide = _useState4[0],
-      setActiveSide = _useState4[1];
+      activePiece = _useState4[0],
+      setActivePiece = _useState4[1];
 
-  var _useState5 = (0,react.useState)([]),
+  var _useState5 = (0,react.useState)(Side.RED),
       _useState6 = app_slicedToArray(_useState5, 2),
-      moveHistory = _useState6[0],
-      setMoveHistroy = _useState6[1];
+      activeSide = _useState6[0],
+      setActiveSide = _useState6[1];
+
+  var _useState7 = (0,react.useState)([]),
+      _useState8 = app_slicedToArray(_useState7, 2),
+      moveHistory = _useState8[0],
+      setMoveHistroy = _useState8[1];
+
+  var _useState9 = (0,react.useState)(false),
+      _useState10 = app_slicedToArray(_useState9, 2),
+      isCheckmate = _useState10[0],
+      setIsCheckmate = _useState10[1];
 
   var removeActivePiece = function removeActivePiece() {
-    setActivePiece(null);
+    if (activePiece) {
+      setActivePiece(null);
+    }
   };
 
-  var validMoves = activePiece ? getValidMoves(board, activePiece, board[activePiece[0]][activePiece[1]]) : [];
+  var validMoves = (0,react.useMemo)(function () {
+    return activePiece ? getValidMoves(board, activePiece, board[activePiece[0]][activePiece[1]]) : [];
+  }, [JSON.stringify(activePiece)]);
 
   var isValidMove = function isValidMove(rowIdx, colIdx) {
     return validMoves.some(function (validMove) {
@@ -538,14 +641,22 @@ var App = function App() {
 
   var handleMove = function handleMove(rowIdx, colIdx) {
     if (activePiece) {
-      updateBoard({
+      var to = [rowIdx, colIdx];
+      var newBoard = boardReducer(board, {
         from: activePiece,
-        to: [rowIdx, colIdx]
+        to: to
       });
-      setMoveHistroy([].concat(_toConsumableArray(moveHistory), [{
+
+      if (checkmate(newBoard, activeSide)) {
+        alert('不能送将');
+        return;
+      }
+
+      setBoard(newBoard);
+      setMoveHistroy([].concat(app_toConsumableArray(moveHistory), [{
         side: activeSide,
         from: activePiece,
-        to: [rowIdx, colIdx]
+        to: to
       }]));
       removeActivePiece();
       setActiveSide(function (side) {
@@ -554,6 +665,25 @@ var App = function App() {
     }
   };
 
+  var reset = function reset() {
+    setBoard(initialBoard);
+    setActivePiece(null);
+    setActiveSide(Side.RED);
+    setMoveHistroy([]);
+    setIsCheckmate(false);
+  };
+
+  (0,react.useEffect)(function () {
+    if (win(board, activeSide)) {
+      alert("".concat(activeSide === Side.RED ? 'black' : 'red', " win"));
+      reset();
+    } else if (checkmate(board, activeSide)) {
+      setIsCheckmate(true);
+      setTimeout(function () {
+        setIsCheckmate(false);
+      }, 1000);
+    }
+  }, [board]);
   return /*#__PURE__*/react.createElement("div", {
     className: "app",
     onClick: removeActivePiece
@@ -576,14 +706,20 @@ var App = function App() {
           if (isValidMove(rowIdx, colIdx)) {
             handleMove(rowIdx, colIdx);
           } else if ((item === null || item === void 0 ? void 0 : item.side) === activeSide) {
-            setActivePiece([rowIdx, colIdx]);
+            if (!(activePiece && isEqualPosition(activePiece, [rowIdx, colIdx]))) {
+              setActivePiece([rowIdx, colIdx]);
+            }
           } else {
             removeActivePiece();
           }
         }
       });
     });
-  }))));
+  })), /*#__PURE__*/react.createElement("div", {
+    className: classnames_default()('board__checkmate', {
+      'board__checkmate--active': isCheckmate
+    })
+  })));
 };
 
 /* harmony default export */ const app = (App);
@@ -720,8 +856,8 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADYAAAA2CAMAAAC7
 /******/ "use strict";
 /******/ 
 /******/ var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-/******/ __webpack_require__.O(0, [997], () => (__webpack_exec__(692)));
+/******/ __webpack_require__.O(0, [997], () => (__webpack_exec__(850)));
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=main_179.f4b6ff8d.js.map
+//# sourceMappingURL=main_179.00918fe4.js.map
