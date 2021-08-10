@@ -140,7 +140,33 @@ export const configureGetPos = (board: Board, side: Side, from: Position) => {
     });
     return res;
   };
-  return { common, special };
+  const kingKill = (): Array<Position> => {
+    const column: Array<Piece | null> = [];
+    board.forEach(row =>
+      row.forEach((item, colIdx) => {
+        if (colIdx === from[1]) {
+          column.push(item);
+        }
+      }),
+    );
+    const kingIdx = column.findIndex(
+      item => item && item.type === PieceType.KING && item.side !== side,
+    );
+    if (kingIdx >= 0) {
+      for (
+        let i = Math.min(from[0], kingIdx) + 1;
+        i < Math.max(from[0], kingIdx);
+        i += 1
+      ) {
+        if (column[i]) {
+          return [];
+        }
+      }
+      return [[kingIdx, from[1]]];
+    }
+    return [];
+  };
+  return { common, special, kingKill };
 };
 
 export const getValidMoves = (
@@ -185,13 +211,16 @@ export const getValidMoves = (
       );
 
     case PieceType.KING:
-      return getPos.common(
-        piece.side === Side.RED ? Bound.RED_KING : Bound.BLACK_KING,
-        `${F}1`,
-        `${B}1`,
-        `${L}1`,
-        `${R}1`,
-      );
+      return [
+        ...getPos.common(
+          piece.side === Side.RED ? Bound.RED_KING : Bound.BLACK_KING,
+          `${F}1`,
+          `${B}1`,
+          `${L}1`,
+          `${R}1`,
+        ),
+        ...getPos.kingKill(),
+      ];
     case PieceType.HORSE:
       return getPos.common(
         Bound.BOARD,

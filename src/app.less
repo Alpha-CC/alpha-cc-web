@@ -38,4 +38,24 @@ body {
     grid-template-rows: repeat(10, @grid-size);
     grid-template-columns: repeat(9, @grid-size);
   }
+
+  &__checkmate {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 120px;
+    height: 120px;
+    margin: auto;
+    background-image: url('@/assets/images/overlay/checkmate.png');
+    background-size: 100% 100%;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.5s;
+    &--active {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
 }
