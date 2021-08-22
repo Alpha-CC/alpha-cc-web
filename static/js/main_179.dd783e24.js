@@ -1,6 +1,6 @@
 (self["webpackChunkalpha_cc_web"] = self["webpackChunkalpha_cc_web"] || []).push([[179],{
 
-/***/ 850:
+/***/ 603:
 /***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12,8 +12,6 @@ var react_dom = __webpack_require__(935);
 // EXTERNAL MODULE: ./node_modules/classnames/index.js
 var classnames = __webpack_require__(184);
 var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
-// EXTERNAL MODULE: ./src/assets/images/overlay/valid-move-dot.png
-var valid_move_dot = __webpack_require__(681);
 // EXTERNAL MODULE: ./src/assets/images/pieces/red/king.png
 var king = __webpack_require__(842);
 // EXTERNAL MODULE: ./src/assets/images/pieces/red/advisor.png
@@ -82,51 +80,6 @@ var Side;
 
 var PieceToImg = (_PieceToImg = {}, _defineProperty(_PieceToImg, PieceType.KING, (_PieceType$KING = {}, _defineProperty(_PieceType$KING, Side.RED, king), _defineProperty(_PieceType$KING, Side.BLACK, black_king), _PieceType$KING)), _defineProperty(_PieceToImg, PieceType.ADVISOR, (_PieceType$ADVISOR = {}, _defineProperty(_PieceType$ADVISOR, Side.RED, advisor), _defineProperty(_PieceType$ADVISOR, Side.BLACK, black_advisor), _PieceType$ADVISOR)), _defineProperty(_PieceToImg, PieceType.ELEPHANT, (_PieceType$ELEPHANT = {}, _defineProperty(_PieceType$ELEPHANT, Side.RED, elephant), _defineProperty(_PieceType$ELEPHANT, Side.BLACK, black_elephant), _PieceType$ELEPHANT)), _defineProperty(_PieceToImg, PieceType.CHARIOT, (_PieceType$CHARIOT = {}, _defineProperty(_PieceType$CHARIOT, Side.RED, chariot), _defineProperty(_PieceType$CHARIOT, Side.BLACK, black_chariot), _PieceType$CHARIOT)), _defineProperty(_PieceToImg, PieceType.PAWN, (_PieceType$PAWN = {}, _defineProperty(_PieceType$PAWN, Side.RED, pawn), _defineProperty(_PieceType$PAWN, Side.BLACK, black_pawn), _PieceType$PAWN)), _defineProperty(_PieceToImg, PieceType.CANNON, (_PieceType$CANNON = {}, _defineProperty(_PieceType$CANNON, Side.RED, cannon), _defineProperty(_PieceType$CANNON, Side.BLACK, black_cannon), _PieceType$CANNON)), _defineProperty(_PieceToImg, PieceType.HORSE, (_PieceType$HORSE = {}, _defineProperty(_PieceType$HORSE, Side.RED, horse), _defineProperty(_PieceType$HORSE, Side.BLACK, black_horse), _PieceType$HORSE)), _PieceToImg);
 var PieceM = (_PieceM = {}, _defineProperty(_PieceM, PieceType.KING, (_PieceType$KING2 = {}, _defineProperty(_PieceType$KING2, Side.RED, king), _defineProperty(_PieceType$KING2, Side.BLACK, black_king), _PieceType$KING2)), _defineProperty(_PieceM, PieceType.ADVISOR, (_PieceType$ADVISOR2 = {}, _defineProperty(_PieceType$ADVISOR2, Side.RED, advisor), _defineProperty(_PieceType$ADVISOR2, Side.BLACK, black_advisor), _PieceType$ADVISOR2)), _defineProperty(_PieceM, PieceType.ELEPHANT, (_PieceType$ELEPHANT2 = {}, _defineProperty(_PieceType$ELEPHANT2, Side.RED, elephant), _defineProperty(_PieceType$ELEPHANT2, Side.BLACK, black_elephant), _PieceType$ELEPHANT2)), _defineProperty(_PieceM, PieceType.CHARIOT, (_PieceType$CHARIOT2 = {}, _defineProperty(_PieceType$CHARIOT2, Side.RED, chariot), _defineProperty(_PieceType$CHARIOT2, Side.BLACK, black_chariot), _PieceType$CHARIOT2)), _defineProperty(_PieceM, PieceType.PAWN, (_PieceType$PAWN2 = {}, _defineProperty(_PieceType$PAWN2, Side.RED, pawn), _defineProperty(_PieceType$PAWN2, Side.BLACK, black_pawn), _PieceType$PAWN2)), _defineProperty(_PieceM, PieceType.CANNON, (_PieceType$CANNON2 = {}, _defineProperty(_PieceType$CANNON2, Side.RED, cannon), _defineProperty(_PieceType$CANNON2, Side.BLACK, black_cannon), _PieceType$CANNON2)), _defineProperty(_PieceM, PieceType.HORSE, (_PieceType$HORSE2 = {}, _defineProperty(_PieceType$HORSE2, Side.RED, horse), _defineProperty(_PieceType$HORSE2, Side.BLACK, black_horse), _PieceType$HORSE2)), _PieceM);
-;// CONCATENATED MODULE: ./src/components/board-item/index.tsx
-
-
-
-
-
-
-var BoardItem = function BoardItem(_ref) {
-  var pieceInfo = _ref.pieceInfo,
-      active = _ref.active,
-      validMove = _ref.validMove,
-      highlight = _ref.highlight,
-      _onClick = _ref.onClick;
-
-  var _ref2 = pieceInfo !== null && pieceInfo !== void 0 ? pieceInfo : {},
-      side = _ref2.side,
-      type = _ref2.type;
-
-  return /*#__PURE__*/react.createElement("div", {
-    className: classnames_default()('piece', {
-      'piece--active': active
-    }, {
-      'piece--red': highlight === Side.RED
-    }, {
-      'piece--black': highlight === Side.BLACK
-    }),
-    onClick: function onClick(e) {
-      e.stopPropagation();
-
-      _onClick();
-    }
-  }, type !== undefined && side !== undefined && /*#__PURE__*/react.createElement("img", {
-    draggable: "false",
-    alt: "chinese chess piece",
-    src: PieceToImg[type][side]
-  }), /*#__PURE__*/react.createElement("img", {
-    className: classnames_default()('valid-move', {
-      'valid-move--hidden': !validMove
-    }),
-    alt: "valid move",
-    src: valid_move_dot
-  }));
-};
-
-/* harmony default export */ const board_item = (BoardItem);
 ;// CONCATENATED MODULE: ./src/constants/board.ts
 
 var Size = {
@@ -236,6 +189,57 @@ var boardReducer = function boardReducer(board, pos) {
       return item;
     });
   });
+};
+// EXTERNAL MODULE: ./src/assets/images/overlay/valid-move-dot.png
+var valid_move_dot = __webpack_require__(681);
+;// CONCATENATED MODULE: ./src/components/board-item/index.tsx
+
+
+
+
+
+
+var BoardItem = function BoardItem(_ref) {
+  var pieceInfo = _ref.pieceInfo,
+      active = _ref.active,
+      validMove = _ref.validMove,
+      highlight = _ref.highlight,
+      _onClick = _ref.onClick;
+
+  var _ref2 = pieceInfo !== null && pieceInfo !== void 0 ? pieceInfo : {},
+      side = _ref2.side,
+      type = _ref2.type;
+
+  return /*#__PURE__*/react.createElement("div", {
+    className: classnames_default()('piece', {
+      'piece--active': active
+    }, {
+      'piece--red': highlight === Side.RED
+    }, {
+      'piece--black': highlight === Side.BLACK
+    }),
+    onClick: function onClick(e) {
+      e.stopPropagation();
+
+      _onClick();
+    }
+  }, type !== undefined && side !== undefined && /*#__PURE__*/react.createElement("img", {
+    draggable: "false",
+    alt: "chinese chess piece",
+    src: PieceToImg[type][side]
+  }), /*#__PURE__*/react.createElement("img", {
+    className: classnames_default()('valid-move', {
+      'valid-move--hidden': !validMove
+    }),
+    alt: "valid move",
+    src: valid_move_dot
+  }));
+};
+
+/* harmony default export */ const board_item = (BoardItem);
+;// CONCATENATED MODULE: ./src/utils/position.ts
+var isEqualPosition = function isEqualPosition(p1, p2) {
+  return p1[0] === p2[0] && p1[1] === p2[1];
 };
 ;// CONCATENATED MODULE: ./src/constants/move.ts
 var Direction;
@@ -507,10 +511,6 @@ var getValidMoves = function getValidMoves(board, position, piece) {
 
   return result;
 };
-;// CONCATENATED MODULE: ./src/utils/position.ts
-var isEqualPosition = function isEqualPosition(p1, p2) {
-  return p1[0] === p2[0] && p1[1] === p2[1];
-};
 ;// CONCATENATED MODULE: ./src/utils/game.ts
 
 
@@ -559,26 +559,26 @@ var win = function win(board, side) {
     })
   );
 };
-;// CONCATENATED MODULE: ./src/app.tsx
-function app_toConsumableArray(arr) { return app_arrayWithoutHoles(arr) || app_iterableToArray(arr) || app_unsupportedIterableToArray(arr) || app_nonIterableSpread(); }
+;// CONCATENATED MODULE: ./src/components/board/index.tsx
+function board_toConsumableArray(arr) { return board_arrayWithoutHoles(arr) || board_iterableToArray(arr) || board_unsupportedIterableToArray(arr) || board_nonIterableSpread(); }
 
-function app_nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function board_nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function app_iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function board_iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 
-function app_arrayWithoutHoles(arr) { if (Array.isArray(arr)) return app_arrayLikeToArray(arr); }
+function board_arrayWithoutHoles(arr) { if (Array.isArray(arr)) return board_arrayLikeToArray(arr); }
 
-function app_slicedToArray(arr, i) { return app_arrayWithHoles(arr) || app_iterableToArrayLimit(arr, i) || app_unsupportedIterableToArray(arr, i) || app_nonIterableRest(); }
+function board_slicedToArray(arr, i) { return board_arrayWithHoles(arr) || board_iterableToArrayLimit(arr, i) || board_unsupportedIterableToArray(arr, i) || board_nonIterableRest(); }
 
-function app_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function board_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function app_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return app_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return app_arrayLikeToArray(o, minLen); }
+function board_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return board_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return board_arrayLikeToArray(o, minLen); }
 
-function app_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function board_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function app_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function board_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
-function app_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function board_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
@@ -592,36 +592,29 @@ function app_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var initialBoard = initBoard();
 
-var App = function App() {
-  console.log('rerender'); // const [board, updateBoard] = useReducer<BoardReducer>(
-  //   boardReducer,
-  //   initialBoard,
-  // );
+var CCBoard = function CCBoard(props) {
+  var activePiece = props.activePiece,
+      setActivePiece = props.setActivePiece;
 
   var _useState = (0,react.useState)(initialBoard),
-      _useState2 = app_slicedToArray(_useState, 2),
+      _useState2 = board_slicedToArray(_useState, 2),
       board = _useState2[0],
       setBoard = _useState2[1];
 
-  var _useState3 = (0,react.useState)(null),
-      _useState4 = app_slicedToArray(_useState3, 2),
-      activePiece = _useState4[0],
-      setActivePiece = _useState4[1];
+  var _useState3 = (0,react.useState)(Side.RED),
+      _useState4 = board_slicedToArray(_useState3, 2),
+      activeSide = _useState4[0],
+      setActiveSide = _useState4[1];
 
-  var _useState5 = (0,react.useState)(Side.RED),
-      _useState6 = app_slicedToArray(_useState5, 2),
-      activeSide = _useState6[0],
-      setActiveSide = _useState6[1];
+  var _useState5 = (0,react.useState)([]),
+      _useState6 = board_slicedToArray(_useState5, 2),
+      moveHistory = _useState6[0],
+      setMoveHistroy = _useState6[1];
 
-  var _useState7 = (0,react.useState)([]),
-      _useState8 = app_slicedToArray(_useState7, 2),
-      moveHistory = _useState8[0],
-      setMoveHistroy = _useState8[1];
-
-  var _useState9 = (0,react.useState)(false),
-      _useState10 = app_slicedToArray(_useState9, 2),
-      isCheckmate = _useState10[0],
-      setIsCheckmate = _useState10[1];
+  var _useState7 = (0,react.useState)(false),
+      _useState8 = board_slicedToArray(_useState7, 2),
+      isCheckmate = _useState8[0],
+      setIsCheckmate = _useState8[1];
 
   var removeActivePiece = function removeActivePiece() {
     if (activePiece) {
@@ -653,7 +646,7 @@ var App = function App() {
       }
 
       setBoard(newBoard);
-      setMoveHistroy([].concat(app_toConsumableArray(moveHistory), [{
+      setMoveHistroy([].concat(board_toConsumableArray(moveHistory), [{
         side: activeSide,
         from: activePiece,
         to: to
@@ -685,9 +678,6 @@ var App = function App() {
     }
   }, [board]);
   return /*#__PURE__*/react.createElement("div", {
-    className: "app",
-    onClick: removeActivePiece
-  }, /*#__PURE__*/react.createElement("div", {
     className: "board"
   }, /*#__PURE__*/react.createElement("div", {
     className: "board__background"
@@ -719,7 +709,51 @@ var App = function App() {
     className: classnames_default()('board__checkmate', {
       'board__checkmate--active': isCheckmate
     })
-  })));
+  }));
+};
+
+/* harmony default export */ const board = (CCBoard);
+;// CONCATENATED MODULE: ./src/app.tsx
+function app_slicedToArray(arr, i) { return app_arrayWithHoles(arr) || app_iterableToArrayLimit(arr, i) || app_unsupportedIterableToArray(arr, i) || app_nonIterableRest(); }
+
+function app_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function app_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return app_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return app_arrayLikeToArray(o, minLen); }
+
+function app_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function app_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function app_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+var App = function App() {
+  console.log('rerender'); // const [board, updateBoard] = useReducer<BoardReducer>(
+  //   boardReducer,
+  //   initialBoard,
+  // );
+
+  var _useState = (0,react.useState)(null),
+      _useState2 = app_slicedToArray(_useState, 2),
+      activePiece = _useState2[0],
+      setActivePiece = _useState2[1];
+
+  var removeActivePiece = function removeActivePiece() {
+    if (activePiece) {
+      setActivePiece(null);
+    }
+  };
+
+  return /*#__PURE__*/react.createElement("div", {
+    className: "app",
+    onClick: removeActivePiece
+  }, /*#__PURE__*/react.createElement(board, {
+    activePiece: activePiece,
+    setActivePiece: setActivePiece
+  }), ' ');
 };
 
 /* harmony default export */ const app = (App);
@@ -856,8 +890,8 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADYAAAA2CAMAAAC7
 /******/ "use strict";
 /******/ 
 /******/ var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-/******/ __webpack_require__.O(0, [997], () => (__webpack_exec__(850)));
+/******/ __webpack_require__.O(0, [997], () => (__webpack_exec__(603)));
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=main_179.00918fe4.js.map
+//# sourceMappingURL=main_179.dd783e24.js.map
