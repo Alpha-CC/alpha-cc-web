@@ -2,6 +2,10 @@
 
 This project is created with [Create Hotdog App](https://github.com/Yuhao-C/create-hotdog-app).
 
+## Online Playground
+
+[Link](https://alpha-cc.github.io/alpha-cc-web)
+
 ## Setup
 
 This project requires [Visual Studio Code](https://code.visualstudio.com/) and [Yarn 1](https://classic.yarnpkg.com/en/docs/install).
